@@ -74,11 +74,6 @@ export class SpinPicker<T> extends React.Component<SpinPickerProps<T>, SpinPicke
             index: '1-' + this.props.keyExtractor(item),
             item: item
         }));
-
-        this.data.push(...this.props.data.map(item => ({
-            index: '2-' + this.props.keyExtractor(item),
-            item: item
-        })));
     }
 
     render() {
