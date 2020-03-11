@@ -70,15 +70,10 @@ export class SpinPicker<T> extends React.Component<SpinPickerProps<T>, SpinPicke
     }
 
     private mapData() {
-        this.data = this.props.data.map(item => ({
-            index: '1-' + this.props.keyExtractor(item),
+        this.data = this.props.data.map((item, index)  => ({
+            index: index.toString(),
             item: item
         }));
-
-        this.data.push(...this.props.data.map(item => ({
-            index: '2-' + this.props.keyExtractor(item),
-            item: item
-        })));
     }
 
     render() {
@@ -180,8 +175,10 @@ export class SpinPicker<T> extends React.Component<SpinPickerProps<T>, SpinPicke
     private onDecrementIndex = () => this.scrollToIndex(this.state.selectedIndex - 1);
 
     private onIndexChanged(selectedIndex: number) {
-        this.setState({selectedIndex});
-        this.props.onValueChange(this.data[selectedIndex + 1].item);
+        if(selectedIndex + 1 < this.data.length){
+            this.setState({ selectedIndex });
+            this.props.onValueChange(this.data[selectedIndex + 1].item);
+        }
     }
 
     private scrollToIndex(selectedIndex: number) {
@@ -207,13 +204,7 @@ export class SpinPicker<T> extends React.Component<SpinPickerProps<T>, SpinPicke
     }
 
     private onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const {y} = event.nativeEvent.contentOffset;
 
-        if (y < this.scrollThreshold) {
-            this.listRef.scrollToOffset({offset: this.dataLength * this.state.height + y});
-        } else if (y > ((this.dataLength * 2 - this.showLength) * this.state.height) - this.scrollThreshold) {
-            this.listRef.scrollToOffset({offset: (this.dataLength - this.showLength) * this.state.height});
-        }
     };
 
     private scrollToNearestElement = (verticalOffset: number) => {
