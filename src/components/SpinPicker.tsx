@@ -204,13 +204,7 @@ export class SpinPicker<T> extends React.Component<SpinPickerProps<T>, SpinPicke
     }
 
     private onScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
-        const {y} = event.nativeEvent.contentOffset;
-
-        if (y < this.scrollThreshold) {
-            this.listRef.scrollToOffset({offset: this.dataLength * this.state.height + y});
-        } else if (y > ((this.dataLength * 2 - this.showLength) * this.state.height) - this.scrollThreshold) {
-            this.listRef.scrollToOffset({offset: (this.dataLength - this.showLength) * this.state.height});
-        }
+      
     };
 
     private scrollToNearestElement = (verticalOffset: number) => {
