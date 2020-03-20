@@ -175,8 +175,10 @@ export class SpinPicker<T> extends React.Component<SpinPickerProps<T>, SpinPicke
     private onDecrementIndex = () => this.scrollToIndex(this.state.selectedIndex - 1);
 
     private onIndexChanged(selectedIndex: number) {
-        this.setState({selectedIndex});
-        this.props.onValueChange(this.data[selectedIndex + 1].item);
+        if (selectedIndex !== 26){
+            this.setState({selectedIndex});
+            this.props.onValueChange(this.data[selectedIndex + 1].item);
+        }
     }
 
     private scrollToIndex(selectedIndex: number) {
